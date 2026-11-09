@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mulugeta Getachew</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2313201B'/%3E%3Cpath d='M16 46V18h6l10 14 10-14h6v28h-7V30l-9 12-9-12v16z' fill='%23F2F4F0'/%3E%3Ccircle cx='50' cy='46' r='4' fill='%235FC39A'/%3E%3C/svg%3E">
+<meta name="description" content="Mulugeta Getachew, full-stack web developer in Addis Ababa. Laravel, React and MySQL.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Ethiopic:wght@500&display=swap">
+<style>
+/* Layout: narrow reading column; the featured project breaks wide as a "storefront + spec sheet" pair, with one animated order-flow moment. Everything else stays quiet. */
+:root {
+  --bg: #F2F4F0;
+  --surface: #FFFFFF;
+  --ink: #13201B;
+  --muted: #56645D;
+  --line: #D7DDD6;
+  --accent: #1E6A4E;
+  --accent-soft: #DCEBE3;
+  --mark: #B87C0C;
+  --header: rgba(242, 244, 240, .82);
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --ethiopic: "Noto Sans Ethiopic", "Nyala", "Abyssinica SIL", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1613; --surface: #16201C; --ink: #E6ECE8; --muted: #9AA9A1;
+    --line: #26332D; --accent: #5FC39A; --accent-soft: #183A2D; --mark: #E3AE45;
+    --header: rgba(15, 22, 19, .82);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1613; --surface: #16201C; --ink: #E6ECE8; --muted: #9AA9A1;
+  --line: #26332D; --accent: #5FC39A; --accent-soft: #183A2D; --mark: #E3AE45;
+  --header: rgba(15, 22, 19, .82);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+body {
+  background: var(--bg); color: var(--ink);
+  font: 400 1rem/1.65 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -0.02em; }
+p { margin: 0; }
+img { max-width: 100%; }
+svg.lucide { width: 1em; height: 1em; stroke-width: 2; flex: none; }
+
+.wrap { max-width: 1080px; margin: 0 auto; }
+.col { max-width: 720px; }
+
+/* sticky header */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  margin-left: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  margin-right: calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  background: var(--header); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent; transition: border-color .2s;
+}
+.top.scrolled { border-bottom-color: var(--line); }
+.top-inner {
+  max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding-block: 14px; font-family: var(--mono); font-size: .8rem;
+}
+.brand { color: var(--ink); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; }
+.brand-mark { width: 26px; height: 26px; border-radius: 7px; background: var(--ink); color: var(--bg); display: grid; place-items: center; font: 800 .8rem var(--display); }
+.top nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.top nav a { color: var(--muted); text-decoration: none; position: relative; }
+.top nav a:hover, .top nav a.active { color: var(--ink); }
+.top nav a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--accent); border-radius: 2px; }
+.theme-btn {
+  font: inherit; color: var(--muted); background: none; border: 1px solid var(--line);
+  border-radius: 999px; width: 34px; height: 34px; display: grid; place-items: center; cursor: pointer;
+}
+.theme-btn:hover { color: var(--ink); border-color: var(--muted); }
+
+/* hero */
+.hero { padding-block: 64px 56px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center; }
+.hero-text { display: grid; gap: 24px; min-width: 0; }
+.name-am { font: 500 1.05rem var(--ethiopic); color: var(--muted); letter-spacing: .02em; }
+.hero h1 { font-size: clamp(2.6rem, 7.4vw, 5rem); font-weight: 800; line-height: .98; }
+.hero h1 .dot { color: var(--accent); }
+.typed-line { font: 600 clamp(1.15rem, 2.6vw, 1.45rem)/1.4 var(--display); min-height: 2.9em; }
+.typed-line .typed-word { color: var(--accent); }
+.typed-cursor { color: var(--accent); font-weight: 400; }
+.lede { font-size: 1.08rem; color: var(--muted); max-width: 58ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+  font: 600 .92rem var(--body); padding: 11px 18px; border-radius: 8px;
+  border: 1px solid var(--line); color: var(--ink); background: var(--surface); cursor: pointer;
+  transition: border-color .15s, transform .15s, background .15s;
+}
+.btn:hover { border-color: var(--ink); transform: translateY(-1px); }
+.btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn.primary:hover { background: var(--accent); border-color: var(--accent); }
+
+/* hero code card */
+.code-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  font: .8rem/1.75 var(--mono); overflow: hidden; min-width: 0;
+  box-shadow: 0 24px 48px -28px rgba(19, 32, 27, .35);
+}
+.code-head { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .72rem; }
+.code-head i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); display: block; }
+.code-head span { margin-left: 8px; }
+.code-body { padding: 16px 18px; overflow-x: auto; white-space: pre; color: var(--ink); }
+.k { color: var(--accent); } .s { color: var(--mark); } .c { color: var(--muted); }
+
+/* stats */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.stat { padding: 22px 0; display: grid; gap: 2px; }
+.stat + .stat { padding-left: 24px; border-left: 1px solid var(--line); }
+.stat b { font: 800 2rem/1 var(--display); font-variant-numeric: tabular-nums; }
+.stat span { font: .75rem var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+
+/* sections */
+section { padding-block: 72px; }
+section + section { border-top: 1px solid var(--line); }
+.label {
+  font: 500 .75rem var(--mono); text-transform: uppercase; letter-spacing: .12em;
+  color: var(--muted); margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px;
+}
+.label svg { color: var(--accent); }
+.sec-title { font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 700; margin-bottom: 24px; }
+.prose { display: grid; gap: 14px; font-size: 1.05rem; }
+.services { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 32px; padding: 0; list-style: none; }
+.services li {
+  display: flex; gap: 12px; align-items: flex-start; padding: 16px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+  transition: border-color .15s;
+}
+.services li:hover { border-color: var(--accent); }
+.services li svg { color: var(--accent); width: 20px; height: 20px; margin-top: 2px; }
+
+/* featured project */
+.feature { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+.feature-main { display: grid; gap: 16px; align-content: start; min-width: 0; }
+.tag { font: 500 .72rem var(--mono); color: var(--mark); text-transform: uppercase; letter-spacing: .1em; display: inline-flex; gap: 6px; align-items: center; }
+.feature h3 { font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 800; }
+.feature-main > p { color: var(--muted); }
+.feature ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.feature ul li { display: flex; gap: 10px; }
+.feature ul li svg { color: var(--accent); margin-top: 5px; }
+.links { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 4px; }
+
+/* storefront screenshot */
+.mock { display: grid; gap: 14px; min-width: 0; }
+.browser {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+  box-shadow: 0 24px 48px -28px rgba(19, 32, 27, .35);
+}
+.browser-bar { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+.browser-bar .dots { display: flex; gap: 5px; }
+.browser-bar .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); display: block; }
+.url { flex: 1; min-width: 0; font: .7rem var(--mono); color: var(--muted); background: var(--bg); border-radius: 6px; padding: 4px 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.shot-link { display: block; overflow: hidden; }
+.shot { display: block; width: 100%; height: auto; max-width: 100%; transition: transform .4s ease; }
+.shot-link:hover .shot { transform: scale(1.02); }
+
+/* order flow */
+.flow-card { background: var(--accent-soft); border-radius: 14px; padding: 16px 18px; display: grid; gap: 12px; }
+.flow-card h4 { margin: 0; font: 500 .72rem var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); display: flex; justify-content: space-between; }
+.steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; position: relative; }
+.step { display: grid; justify-items: center; gap: 6px; text-align: center; font: .64rem/1.25 var(--mono); color: var(--muted); }
+.step .node {
+  width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--surface); border: 1px solid var(--line); color: var(--muted);
+  transition: background .25s, color .25s, border-color .25s;
+}
+.step.lit .node { background: var(--accent); color: var(--surface); border-color: var(--accent); }
+.step.lit { color: var(--ink); }
+.specs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; padding: 4px 2px 0; }
+.spec dt { font: 500 .68rem var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.spec dd { margin: 0; font-size: .9rem; font-weight: 500; }
+.mock-note { font: .68rem var(--mono); color: var(--muted); }
+
+/* other projects */
+.projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 56px; }
+.proj {
+  display: grid; gap: 10px; align-content: start; padding: 22px;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
+  transition: border-color .2s, transform .2s;
+}
+.proj:hover { border-color: var(--accent); transform: translateY(-2px); }
+.proj-icon { width: 38px; height: 38px; border-radius: 9px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+.proj-icon svg { width: 20px; height: 20px; }
+.proj h3 { font-size: 1.2rem; font-weight: 700; }
+.proj .stack { display: flex; flex-wrap: wrap; gap: 6px; }
+.proj .stack b { font: 500 .7rem var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 1px 7px; }
+.proj p { color: var(--muted); font-size: .95rem; }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.skill-box { border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 14px; align-content: start; background: var(--surface); }
+.skill-box h3 { font: 500 .78rem var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.skill-box h3 svg { color: var(--accent); width: 16px; height: 16px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: .88rem; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; }
+.chip.core { border-color: var(--accent); color: var(--accent); font-weight: 600; background: var(--accent-soft); }
+.skills-note { margin-top: 14px; font: .75rem var(--mono); color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.skills-note i { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--accent); background: var(--accent-soft); display: inline-block; }
+
+/* timeline */
+.timeline { display: grid; gap: 0; position: relative; }
+.entry { display: grid; grid-template-columns: 170px 28px 1fr; gap: 0 18px; padding-bottom: 36px; }
+.entry:last-child { padding-bottom: 0; }
+.entry .when { font: .8rem var(--mono); color: var(--muted); padding-top: 6px; text-align: right; }
+.rail { position: relative; display: flex; justify-content: center; }
+.rail::before { content: ""; position: absolute; top: 34px; bottom: -36px; width: 1px; background: var(--line); }
+.entry:last-child .rail::before { display: none; }
+.rail span { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; position: relative; }
+.rail span svg { width: 14px; height: 14px; }
+.entry h3 { font-size: 1.15rem; font-weight: 700; }
+.entry .org { color: var(--muted); margin-bottom: 8px; }
+.entry ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; color: var(--muted); }
+.courses { font-size: .92rem; color: var(--muted); }
+
+/* contact */
+.contact-wrap { background: var(--ink); color: var(--bg); border-radius: 20px; padding: clamp(28px, 5vw, 56px); display: grid; gap: 28px; }
+.contact-wrap .label { color: var(--bg); opacity: .7; margin: 0; }
+.contact-wrap .label svg { color: var(--bg); }
+.contact-wrap h2 { font-size: clamp(2rem, 6vw, 3.6rem); font-weight: 800; line-height: 1.02; }
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 10px; margin: 0; }
+.contact-item {
+  border: 1px solid rgba(127, 140, 134, .35); border-radius: 10px;
+  padding: 14px 16px; display: flex; gap: 12px; align-items: center; min-width: 0;
+}
+.contact-item > svg { width: 20px; height: 20px; opacity: .8; }
+.contact-item .ci { display: grid; gap: 2px; min-width: 0; flex: 1; }
+.contact-item dt { font: 500 .68rem var(--mono); text-transform: uppercase; letter-spacing: .1em; opacity: .65; }
+.contact-item dd { margin: 0; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 420px) { .contact-item dd { white-space: normal; overflow-wrap: anywhere; } }
+.contact-item dd a { color: var(--bg); }
+.copy {
+  font: 500 .72rem var(--mono); color: var(--bg); background: none; flex: none;
+  border: 1px solid rgba(127, 140, 134, .5); border-radius: 6px; padding: 4px 9px; cursor: pointer;
+  display: inline-flex; gap: 5px; align-items: center;
+}
+.copy:hover { border-color: var(--bg); }
+.langs { font: .82rem var(--mono); opacity: .7; }
+footer { padding-block: 32px 48px; font: .78rem var(--mono); color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; padding-block: 40px 40px; }
+  .feature { grid-template-columns: 1fr; }
+  .projects { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(3) { padding-left: 0; border-left: 0; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .top nav { display: none; }
+}
+@media (max-width: 560px) {
+  .entry { grid-template-columns: 28px 1fr; }
+  .entry .when { grid-column: 2; grid-row: 1; text-align: left; padding: 0 0 4px; }
+  .entry .rail { grid-column: 1; grid-row: 1 / span 2; }
+  .entry > div:last-child { grid-column: 2; }
+  .rail::before { bottom: -36px; }
+  .specs { grid-template-columns: 1fr; }
+  .step { font-size: .56rem; }
+  .step .node { width: 28px; height: 28px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="topbar">
+  <div class="top-inner">
+    <a class="brand" href="#top"><span class="brand-mark">M</span>mulugeta.getachew</a>
+    <nav aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme-btn" id="theme-toggle" type="button" aria-label="Switch color theme"><i data-lucide="moon"></i></button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero" id="top">
+    <div class="hero-text">
+      <div class="h-in" style="display:grid;gap:10px">
+        <h1>Mulugeta Getachew<span class="dot"></span></h1>
+      </div>
+      <p class="typed-line h-in">Full-stack developer in Addis Ababa.<br>I build <span class="typed-word" id="typed">marketplaces</span></p>
+      <p class="lede h-in">Laravel, React and MySQL are my main tools. I care about a clean database, an interface that feels simple, and shipping on time.</p>
+      <div class="actions h-in">
+        <a class="btn primary" href="#work"><i data-lucide="arrow-down-right"></i>See my work</a>
+        <a class="btn" href="https://github.com/Abinet4" target="_blank" rel="noopener"><i data-lucide="github"></i>GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/mulugeta-getachew-0a2294314/" target="_blank" rel="noopener"><i data-lucide="linkedin"></i>LinkedIn</a>
+      </div>
+    </div>
+    <div class="code-card h-in" aria-hidden="true">
+      <div class="code-head"><i></i><i></i><i></i><span>routes/api.php</span></div>
+<div class="code-body"><span class="c">// Betoch Marketplace</span>
+<span class="k">Route</span>::middleware(<span class="s">'auth:sanctum'</span>)
+  -&gt;group(<span class="k">function</span> () {
+    <span class="k">Route</span>::post(<span class="s">'/checkout'</span>,
+      [<span class="k">CheckoutController</span>::class, <span class="s">'store'</span>]);
+    <span class="k">Route</span>::post(<span class="s">'/payments/chapa'</span>,
+      [<span class="k">ChapaController</span>::class, <span class="s">'init'</span>]);
+    <span class="k">Route</span>::apiResource(<span class="s">'listings'</span>,
+      <span class="k">ListingController</span>::class);
+});</div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b data-count="5">5</b><span>Projects built</span></div>
+    <div class="stat"><b data-count="98">98</b><span>Commits on Betoch</span></div>
+    <div class="stat"><b data-count="3">3</b><span>User roles per app</span></div>
+    <div class="stat"><b>2026</b><span>Diploma completed</span></div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <span class="label"><i data-lucide="user"></i>About</span>
+    <h2 class="sec-title reveal">Business apps that work, built with care.</h2>
+    <div class="col prose reveal">
+      <p>I recently finished my Level 5 Diploma in Web Development &amp; Database Administration at General Wingate Polytechnic College. Since then I've built a multi-vendor furniture marketplace, a microfinance management system and an online exam platform from scratch.</p>
+      <p>I like projects where the data model has to be designed carefully and the interface still has to feel simple. Before I moved into development full time, I worked as a field data collector, which taught me to double-check details and finish on schedule. I ask questions early, keep clients updated, and deliver what I promise.</p>
+    </div>
+    <ul class="services reveal-group" aria-label="What I can help with">
+      <li><i data-lucide="layout-dashboard"></i>Web apps and admin dashboards in Laravel and React</li>
+      <li><i data-lucide="database"></i>MySQL and PostgreSQL database design</li>
+      <li><i data-lucide="plug"></i>REST APIs and frontend integration</li>
+      <li><i data-lucide="wrench"></i>Bug fixes and new features in PHP/Laravel projects</li>
+      <li><i data-lucide="credit-card"></i>Payment integration with Chapa</li>
+      <li><i data-lucide="smartphone"></i>Responsive websites and landing pages</li>
+    </ul>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <span class="label"><i data-lucide="folder-open"></i>Selected work</span>
+    <article class="feature">
+      <div class="feature-main reveal">
+        <span class="tag"><i data-lucide="star"></i>Featured project</span>
+        <h3>Betoch Marketplace</h3>
+        <p>A multi-vendor furniture marketplace for Addis Ababa where customers compare and buy furniture from verified local sellers.</p>
+        <ul>
+          <li><i data-lucide="check"></i><span>Laravel REST API with Sanctum auth and a React + Vite frontend, with separate workflows for customers, sellers and admins.</span></li>
+          <li><i data-lucide="check"></i><span>Seller onboarding: sellers apply, admins approve, and approved sellers manage their own listings and stock.</span></li>
+          <li><i data-lucide="check"></i><span>Checkout that splits each cart into one order per seller, reserves stock and supports cash on delivery.</span></li>
+          <li><i data-lucide="check"></i><span>Chapa online payments, with refunds and seller payouts tracked by admins.</span></li>
+          <li><i data-lucide="check"></i><span>Commissions, seller balances, settlements and sales reports with CSV export.</span></li>
+          <li><i data-lucide="check"></i><span>Email and SMS alerts, two-step sign-in by text, reviews, compare and quick view.</span></li>
+        </ul>
+        <div class="links">
+          <a class="btn primary" href="https://spotlight-project.vercel.app" target="_blank" rel="noopener"><i data-lucide="external-link"></i>Live demo</a>
+          <a class="btn" href="https://github.com/Abinet4/spotlight-project" target="_blank" rel="noopener"><i data-lucide="code-2"></i>Source code</a>
+        </div>
+      </div>
+
+      <div class="mock reveal">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <div class="url">spotlight-project.vercel.app/shop</div>
+          </div>
+          <a href="https://spotlight-project.vercel.app" target="_blank" rel="noopener" class="shot-link">
+            <img class="shot" src="betoch-shop.webp" width="1009" height="615" alt="Betoch Marketplace storefront: furniture category bar, price, condition and seller location filters, and a grid of beds, wardrobes and dining sets from Addis Ababa sellers priced in ETB">
+          </a>
+        </div>
+
+        <div class="flow-card">
+          <h4><span>How an order moves</span><span id="flow-step">1 / 6</span></h4>
+          <div class="steps" id="steps">
+            <div class="step lit"><div class="node"><i data-lucide="shopping-cart"></i></div>Cart</div>
+            <div class="step"><div class="node"><i data-lucide="split"></i></div>Split by seller</div>
+            <div class="step"><div class="node"><i data-lucide="package-check"></i></div>Reserve stock</div>
+            <div class="step"><div class="node"><i data-lucide="credit-card"></i></div>Chapa / cash</div>
+            <div class="step"><div class="node"><i data-lucide="percent"></i></div>Commission</div>
+            <div class="step"><div class="node"><i data-lucide="wallet"></i></div>Payout</div>
+          </div>
+        </div>
+
+        <div class="specs">
+          <dl class="spec"><dt>Backend</dt><dd>Laravel 13, PHP 8.3, MySQL 8</dd></dl>
+          <dl class="spec"><dt>Frontend</dt><dd>React 19, Vite, Tailwind CSS 4</dd></dl>
+          <dl class="spec"><dt>Integrations</dt><dd>Chapa, AfroMessage, SMTP</dd></dl>
+          <dl class="spec"><dt>Ops</dt><dd>GitHub Actions, Docker, queues</dd></dl>
+        </div>
+        <p class="mock-note">Screenshot of the live storefront. Click it to open the demo.</p>
+      </div>
+    </article>
+
+    <div class="projects reveal-group">
+      <article class="proj">
+        <div class="proj-icon"><i data-lucide="landmark"></i></div>
+        <h3>Microfinance Management System</h3>
+        <div class="stack"><b>Laravel</b><b>React</b><b>MySQL</b></div>
+        <p>Manages client records, loans, savings and daily transactions. Loan officers, cashiers and managers each get their own permissions, and reports summarize loan status, repayments and savings.</p>
+      </article>
+      <article class="proj">
+        <div class="proj-icon"><i data-lucide="graduation-cap"></i></div>
+        <h3>Online Student Examination System</h3>
+        <div class="stack"><b>Laravel</b><b>MySQL</b><b>JavaScript</b></div>
+        <p>Secure login with separate roles for admins, teachers and students. Teachers build a question bank, and a dashboard shows exam results and student performance at a glance.</p>
+      </article>
+      <article class="proj">
+        <div class="proj-icon"><i data-lucide="list-checks"></i></div>
+        <h3>Task Management Application</h3>
+        <div class="stack"><b>PHP</b><b>MySQL</b></div>
+        <p>A project and task tracker with full create, edit and delete support, built on a relational schema I designed, with task export so teams can share progress.</p>
+      </article>
+      <article class="proj">
+        <div class="proj-icon"><i data-lucide="monitor-smartphone"></i></div>
+        <h3>Personal Portfolio &amp; CV Site</h3>
+        <div class="stack"><b>HTML5</b><b>CSS3</b><b>JavaScript</b></div>
+        <p>A responsive personal site for phones and desktops, with dark/light mode and a print-ready CV page.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <span class="label"><i data-lucide="cpu"></i>Skills</span>
+    <h2 class="sec-title reveal">My toolkit</h2>
+    <div class="skills reveal-group">
+      <div class="skill-box">
+        <h3><i data-lucide="server"></i>Backend</h3>
+        <div class="chips"><span class="chip core">PHP</span><span class="chip core">Laravel</span><span class="chip">Node.js</span><span class="chip">REST APIs</span><span class="chip">Sanctum auth</span></div>
+      </div>
+      <div class="skill-box">
+        <h3><i data-lucide="layout-template"></i>Frontend</h3>
+        <div class="chips"><span class="chip core">React</span><span class="chip">Next.js</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">Tailwind CSS</span><span class="chip">HTML5 / CSS3</span></div>
+      </div>
+      <div class="skill-box">
+        <h3><i data-lucide="database"></i>Databases</h3>
+        <div class="chips"><span class="chip core">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">SQL Server</span><span class="chip">MongoDB</span><span class="chip">Schema design</span></div>
+      </div>
+      <div class="skill-box">
+        <h3><i data-lucide="wrench"></i>Tools &amp; integrations</h3>
+        <div class="chips"><span class="chip">Git &amp; GitHub</span><span class="chip">GitHub Actions</span><span class="chip">Docker</span><span class="chip">Chapa API</span><span class="chip">SMS APIs</span></div>
+      </div>
+      <div class="skill-box">
+        <h3><i data-lucide="sparkles"></i>Familiar with</h3>
+        <div class="chips"><span class="chip">Python</span><span class="chip">Django</span><span class="chip">Machine learning basics</span></div>
+      </div>
+    </div>
+    <p class="skills-note"><i></i>Highlighted = what I use every day</p>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <span class="label"><i data-lucide="briefcase"></i>Experience &amp; education</span>
+    <div class="timeline">
+      <div class="entry reveal">
+        <div class="when">2026</div>
+        <div class="rail"><span><i data-lucide="graduation-cap"></i></span></div>
+        <div>
+          <h3>Level 5 Diploma, Web Development &amp; Database Administration</h3>
+          <p class="org">General Wingate Polytechnic College, Addis Ababa</p>
+          <p class="courses">Coursework: Web Development, Advanced Databases, Object-Oriented Programming, Software Project Management, Requirements Engineering, Mobile Development, Operating Systems, Artificial Intelligence, Machine Learning, Natural Language Processing</p>
+        </div>
+      </div>
+      <div class="entry reveal">
+        <div class="when">40-day contract</div>
+        <div class="rail"><span><i data-lucide="clipboard-list"></i></span></div>
+        <div>
+          <h3>Data Collector</h3>
+          <p class="org">LonAdd Consultancy PLC · Habesha Beer Project</p>
+          <ul>
+            <li>Collected and recorded field data accurately, following project requirements.</li>
+            <li>Checked every entry for completeness and consistency before submission.</li>
+            <li>Kept records organized and finished all reporting on time.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-wrap reveal">
+      <span class="label"><i data-lucide="send"></i>Contact</span>
+      <h2>Have a project in mind?<br>Let's talk.</h2>
+      <dl class="contact-grid">
+        <div class="contact-item">
+          <i data-lucide="mail"></i>
+          <div class="ci"><dt>Email</dt><dd id="email-text">mulugetag4452@gmail.com</dd></div>
+          <button class="copy" type="button" data-copy="email-text"><i data-lucide="copy"></i><span>Copy</span></button>
+        </div>
+        <div class="contact-item">
+          <i data-lucide="phone"></i>
+          <div class="ci"><dt>Phone</dt><dd id="phone-text">+251 966 693 323</dd></div>
+          <button class="copy" type="button" data-copy="phone-text"><i data-lucide="copy"></i><span>Copy</span></button>
+        </div>
+        <div class="contact-item">
+          <i data-lucide="github"></i>
+          <div class="ci"><dt>GitHub</dt><dd><a href="https://github.com/Abinet4" target="_blank" rel="noopener">github.com/Abinet4</a></dd></div>
+        </div>
+        <div class="contact-item">
+          <i data-lucide="linkedin"></i>
+          <div class="ci"><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/mulugeta-getachew-0a2294314/" target="_blank" rel="noopener">mulugeta-getachew</a></dd></div>
+        </div>
+      </dl>
+      <p class="langs">Languages: Amharic (native) · English (professional working proficiency)</p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer><span>© 2026 Mulugeta Getachew</span><span>Addis Ababa, Ethiopia </span></footer>
+</div>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+<script>
+(function () {
+  var root = document.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // icons
+  function icons() { if (window.lucide) lucide.createIcons(); }
+  icons();
+
+  // theme toggle
+  var btn = document.getElementById('theme-toggle');
+  function current() {
+    var t = root.getAttribute('data-theme');
+    if (t) return t;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function setIcon() {
+    btn.innerHTML = '<i data-lucide="' + (current() === 'dark' ? 'sun' : 'moon') + '"></i>';
+    btn.setAttribute('aria-label', current() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    icons();
+  }
+  try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  setIcon();
+  btn.addEventListener('click', function () {
+    var next = current() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    setIcon();
+  });
+
+  // header border + active nav link
+  var bar = document.getElementById('topbar');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.top nav a'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  function onScroll() {
+    bar.classList.toggle('scrolled', window.scrollY > 8);
+    var y = window.scrollY + 140, idx = -1;
+    secs.forEach(function (s, i) { if (s && s.offsetTop <= y) idx = i; });
+    links.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // copy buttons
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    var lbl = b.querySelector('span');
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      var text = el.textContent.trim();
+      function reset() { setTimeout(function () { lbl.textContent = 'Copy'; }, 1600); }
+      function fallback() {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        lbl.textContent = 'Selected'; reset();
+      }
+      try { navigator.clipboard.writeText(text).then(function () { lbl.textContent = 'Copied'; reset(); }, fallback); }
+      catch (e) { fallback(); }
+    });
+  });
+
+  // order flow: steps light up one by one
+  var steps = Array.prototype.slice.call(document.querySelectorAll('#steps .step'));
+  var stepLabel = document.getElementById('flow-step');
+  function showStep(n) {
+    steps.forEach(function (s, i) { s.classList.toggle('lit', i <= n); });
+    stepLabel.textContent = (n + 1) + ' / ' + steps.length;
+  }
+  if (reduce) { showStep(steps.length - 1); }
+  else {
+    var cur = 0;
+    setInterval(function () { cur = (cur + 1) % (steps.length + 1); showStep(Math.min(cur, steps.length - 1)); }, 1100);
+  }
+
+  if (reduce) return;
+
+  // typed headline
+  if (window.Typed) {
+    new Typed('#typed', {
+      strings: ['marketplaces.', 'admin dashboards.', 'REST APIs.', 'clean databases.', 'payment flows.'],
+      typeSpeed: 55, backSpeed: 30, backDelay: 1600, loop: true
+    });
+  } else {
+    document.getElementById('typed').textContent = 'marketplaces, dashboards and APIs.';
+  }
+
+  // motion: content is visible at rest; gsap only adds movement
+  if (window.gsap) {
+    if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+    gsap.from('.h-in', { y: 18, duration: .7, ease: 'power3.out', stagger: .08 });
+
+    document.querySelectorAll('[data-count]').forEach(function (el) {
+      var end = +el.getAttribute('data-count'), o = { v: 0 };
+      gsap.to(o, { v: end, duration: 1.2, ease: 'power2.out', delay: .3,
+        onUpdate: function () { el.textContent = Math.round(o.v); } });
+    });
+
+    if (window.ScrollTrigger) {
+      gsap.utils.toArray('.reveal').forEach(function (el) {
+        gsap.from(el, { y: 28, duration: .8, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+      });
+      gsap.utils.toArray('.reveal-group').forEach(function (g) {
+        gsap.from(g.children, { y: 22, duration: .6, ease: 'power3.out', stagger: .07,
+          scrollTrigger: { trigger: g, start: 'top 88%', once: true } });
+      });
+    }
+  }
+})();
+</script>
+</body>
+</html>
